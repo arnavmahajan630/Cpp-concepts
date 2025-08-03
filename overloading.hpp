@@ -5,7 +5,7 @@ class MyString  {
     MyString(); // No args constructor
     MyString(const char * s); // overloaded constructor
     MyString(const MyString &source); // copy constructor
-    MyString(MyString &&source);
+    MyString(MyString &&source)noexcept;
     ~MyString(); // destructor
 
     
@@ -37,7 +37,7 @@ MyString::MyString(const MyString &soruce):str(nullptr) {
     }
 }
 
-MyString::MyString(MyString &&soruce):str(soruce.str) {
+MyString::MyString(MyString &&soruce)noexcept:str(soruce.str) {
     soruce.str = nullptr;
 }
 
