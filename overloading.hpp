@@ -2,13 +2,18 @@
 class MyString  {
     private:
     char * str;
+    // Constructors
     MyString(); // No args constructor
     MyString(const char * s); // overloaded constructor
     MyString(const MyString &source); // copy constructor
     MyString(MyString &&source)noexcept;
+    // Operator Overloadings
+    MyString &MyString::operator=(const MyString & rhs); // assignment overload (Copy)
+    MyString &MyString::operator=(MyString &&rhs)noexcept; // assignment overload (move)  
     ~MyString(); // destructor
-
     
+    // Getters
+    const char * get_str() const {return str;} 
 };
 MyString::MyString():str(nullptr) {
     str = new char[1];
@@ -41,7 +46,26 @@ MyString::MyString(MyString &&soruce)noexcept:str(soruce.str) {
     soruce.str = nullptr;
 }
 
+MyString &MyString::operator=(const MyString & rhs) {
+    if(this == &rhs)return * this;
+    else {
+        delete []str;
+        str = new char[strlen(rhs.str) + 1];
+        strcpy(str, rhs.str);
+    }
+    return *this;
+}
+MyString &MyString::operator=(MyString &&rhs)noexcept {
+    if(this == &rhs)return *this;
+    else {
+        delete []str;
+        str = rhs.str;
+        rhs.str = nullptr;
+    }
+}
+
+
+
 MyString::~MyString() {
     delete []str;
 }
-
