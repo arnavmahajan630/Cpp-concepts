@@ -2,6 +2,7 @@
 class MyString  {
     private:
     char * str;
+    public:
     // Constructors
     MyString(); // No args constructor
     MyString(const char * s); // overloaded constructor
@@ -10,6 +11,8 @@ class MyString  {
     // Operator Overloadings
     MyString &MyString::operator=(const MyString & rhs); // assignment overload (Copy)
     MyString &MyString::operator=(MyString &&rhs)noexcept; // assignment overload (move)  
+    //friend MyString operator+(const MyString& lhs, const MyString& rhs); // not a member overload +
+    //friend bool operator==(const MyString &lhs, const MyString &rhs);
     ~MyString(); // destructor
     
     // Getters
@@ -64,6 +67,20 @@ MyString &MyString::operator=(MyString &&rhs)noexcept {
     }
 }
 
+MyString operator+(const MyString &lhs, const MyString &rhs) {
+    size_t len = strlen(lhs.get_str()) + strlen(rhs.get_str()) + 1;
+    char * buffer = new char[len];
+    strcpy(buffer, lhs.get_str());
+    strcpy(buffer, rhs.get_str());
+    return MyString(buffer);
+}
+
+bool operator==(const MyString &lhs, const MyString &rhs) {
+    return strcmp(lhs.get_str(), rhs.get_str()) == 0;
+}
+bool operator!=(const MyString &lhs, const MyString &rhs) {
+    return strcmp(lhs.get_str(), rhs.get_str()) == 0;
+}
 
 
 MyString::~MyString() {
