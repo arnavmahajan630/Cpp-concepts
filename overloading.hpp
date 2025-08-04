@@ -1,4 +1,5 @@
 #include <cstring>
+#include <iostream>
 class MyString  {
     private:
     char * str;
@@ -9,8 +10,8 @@ class MyString  {
     MyString(const MyString &source); // copy constructor
     MyString(MyString &&source)noexcept;
     // Operator Overloadings
-    MyString &MyString::operator=(const MyString & rhs); // assignment overload (Copy)
-    MyString &MyString::operator=(MyString &&rhs)noexcept; // assignment overload (move)  
+    MyString& operator=(const MyString & rhs); // assignment overload (Copy)
+    MyString& operator=(MyString &&rhs)noexcept; // assignment overload (move)  
     //friend MyString operator+(const MyString& lhs, const MyString& rhs); // not a member overload +
     //friend bool operator==(const MyString &lhs, const MyString &rhs);
     ~MyString(); // destructor
@@ -19,11 +20,13 @@ class MyString  {
     const char * get_str() const {return str;} 
 };
 MyString::MyString():str(nullptr) {
+    std::cout << "no args called\n";
     str = new char[1];
     str[0] = '\0';
 }
 
 MyString::MyString(const char * s):str(nullptr) {
+    std::cout << "overloaded constructor called\n";
     if(s == nullptr) {
         str = new char[1];
         str[0] = '\0';
@@ -35,6 +38,7 @@ MyString::MyString(const char * s):str(nullptr) {
 }
 
 MyString::MyString(const MyString &soruce):str(nullptr) {
+    std::cout << "copy constructor called\n";
     if(soruce.str == nullptr) {
         str = new char[1];
         str[0] = '\0';
@@ -46,10 +50,12 @@ MyString::MyString(const MyString &soruce):str(nullptr) {
 }
 
 MyString::MyString(MyString &&soruce)noexcept:str(soruce.str) {
+    std::cout << "move constructor was called\n";
     soruce.str = nullptr;
 }
 
 MyString &MyString::operator=(const MyString & rhs) {
+    std::cout << "copy overload was called\n";
     if(this == &rhs)return * this;
     else {
         delete []str;
@@ -59,19 +65,22 @@ MyString &MyString::operator=(const MyString & rhs) {
     return *this;
 }
 MyString &MyString::operator=(MyString &&rhs)noexcept {
+    std::cout << "Move overload was called\n";
     if(this == &rhs)return *this;
     else {
         delete []str;
         str = rhs.str;
         rhs.str = nullptr;
     }
+    return *this;
 }
 
 MyString operator+(const MyString &lhs, const MyString &rhs) {
+    std::cout << "adder overload was called\n";
     size_t len = strlen(lhs.get_str()) + strlen(rhs.get_str()) + 1;
     char * buffer = new char[len];
     strcpy(buffer, lhs.get_str());
-    strcpy(buffer, rhs.get_str());
+    strcat(buffer, rhs.get_str());
     return MyString(buffer);
 }
 
