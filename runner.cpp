@@ -17,5 +17,10 @@ int main() {
     MyString d = "World";
     a = a + c + d;
     cout << a.get_str() << endl; // prints hellonewworld
+
+    // Post Increment
+    MyString s("hello");
+    s++;
+    cout << s.get_str() << endl;
     return 0;
 }

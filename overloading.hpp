@@ -14,6 +14,7 @@ class MyString  {
     MyString& operator=(MyString &&rhs)noexcept; // assignment overload (move)  
     //friend MyString operator+(const MyString& lhs, const MyString& rhs); // not a member overload +
     //friend bool operator==(const MyString &lhs, const MyString &rhs);
+    MyString operator++(int);
     ~MyString(); // destructor
     
     // Getters
@@ -89,6 +90,18 @@ bool operator==(const MyString &lhs, const MyString &rhs) {
 }
 bool operator!=(const MyString &lhs, const MyString &rhs) {
     return strcmp(lhs.get_str(), rhs.get_str()) == 0;
+}
+
+MyString MyString::operator++(int) {
+    std::cout << "post increment was called\n";
+    MyString temp(*this);
+    size_t len = strlen(str);
+    char * buff = new char[2*len + 1];
+    strcpy(buff, str);
+    strcat(buff, str);
+    delete []str;
+    str = buff;
+    return temp;
 }
 
 
