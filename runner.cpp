@@ -1,7 +1,7 @@
 #include <iostream>
 #include "overloading.hpp"
 using namespace std;
-int main() {
+void  operatorOverloading() {
     // Calls Copy Constructor (DEEP COPY) Copies a to b
     MyString a = "Hello";
     MyString b = a;
@@ -22,5 +22,10 @@ int main() {
     MyString s("hello");
     s++;
     cout << s.get_str() << endl;
+}
+
+int main() {
+    //operatorOverloading();
+    
     return 0;
 }
