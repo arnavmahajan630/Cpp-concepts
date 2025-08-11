@@ -24,8 +24,13 @@ void  operatorOverloading() {
     cout << s.get_str() << endl;
 }
 
+void Inheritance() {
+
+}
+
 int main() {
     //operatorOverloading();
+    Inheritance();
     
     return 0;
 }
