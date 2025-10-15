@@ -45,11 +45,6 @@ void  operatorOverloading() {
     k+= "doakes";
     cout << k << endl;
 }                                    
-
-void Inheritance() {
-
-}
-
 int main() {
     operatorOverloading();
     //Inheritance();
