@@ -15,6 +15,11 @@ public:
     MyString&operator=(const MyString&rhs); // assignment copy overload
     MyString &operator=(MyString &&rhs)noexcept;
     MyString operator++(int); // int means post increment
+
+    // copy assign overloads
+    MyString &operator+=(const MyString &rhs); // lval object
+    MyString &operator+=(MyString &&rhs)noexcept;// rval object
+    MyString &operator+=(const char * s); // free string
     ~MyString();// destructor
 
     // Non member functions Since they don't modify object they dont belong in class
@@ -118,10 +123,12 @@ MyString MyString::operator++(int) {
     return temp;
 }
 
+// ostream overload
 ostream &operator<<(ostream &os, const MyString &obj) {
     os << obj.getstr();
     return os;
 }
+// istream overload
 istream &operator>>(istream &is, MyString &obj) {
     char * buff = new char[10000];
     is >> buff;
@@ -130,6 +137,47 @@ istream &operator>>(istream &is, MyString &obj) {
     return is;
 }
 
+// copy += overload
+MyString& MyString::operator+=(const MyString &rhs) {
+    cout << "copy += assignment called" << endl;
+    size_t l1 = strlen(rhs.getstr());
+    size_t l2 = strlen(str);
+    char * buffer = new char[l1 + l2 + 1];
+    strcpy(buffer, str);
+    strcat(buffer, rhs.getstr());
+    delete[]str;
+    str = buffer;
+    return *this; 
+} 
+
+// move += overload
+MyString & MyString::operator+=(MyString && rhs)noexcept {
+    cout << "move += assignment called" << endl;
+    size_t l1 = strlen(rhs.getstr());
+    size_t l2 = strlen(str);
+    char* buffer = new char[l1 + l2 + 1];
+    strcpy(buffer, str);
+    strcat(buffer, rhs.str);
+    delete [] str;
+    str = buffer;
+    rhs.str = nullptr;
+    return *this;
+}
+// const char += overload
+MyString & MyString::operator+=(const char * s) {
+    cout << "const char += assignment called" << endl;
+    if(!s)return *this;
+    size_t len1 = strlen(str);
+    size_t len2 = strlen(s);
+
+    char* buffer = new char[len1 + len2 + 1];
+    strcpy(buffer, str);
+    strcat(buffer, s);
+
+    delete [] str;
+    str = buffer;
+    return * this;
+}
 MyString::~MyString() {
     delete []str;
 }

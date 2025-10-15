@@ -29,11 +29,21 @@ void  operatorOverloading() {
     // inputing to ostream
     MyString j = "";
     cin >> j;
-    cout << j + MyString("21"); // desipite being rval compiler binds
+    cout << j + MyString("21") << endl; // desipite being rval compiler binds
     // the issue is that this MyString is a temp value and can bind only 
     // to a const lvalue i had put non const rhl thus it could not bind 
     
     // c++ Compiler creator rocks
+
+    // += overloads
+    MyString k = "";
+    cin >> k;
+    k+=j;
+    cout << k << endl;
+    k+=MyString("abc");
+    cout << k << endl;
+    k+= "doakes";
+    cout << k << endl;
 }                                    
 
 void Inheritance() {
