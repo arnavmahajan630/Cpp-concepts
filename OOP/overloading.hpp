@@ -20,10 +20,17 @@ public:
     // Non member functions Since they don't modify object they dont belong in class
     // operator + - * / == != stream insertions etc
 
+    // Stream Overloading for cooler input and output
+    // ostream & istream
+
     // member methods
     const char * getstr() const {
         return str;
     }
+
+    // friends
+    friend MyString operator+(const MyString& lhs, const MyString& rhs);
+    friend std::ostream& operator<<(std::ostream& os, const MyString& obj);
 };
     //default
 MyString::MyString():str(nullptr) {
@@ -83,7 +90,7 @@ MyString &MyString::operator=(MyString &&rhs)noexcept {
     return *this;
 }
 
-MyString operator+(const MyString &lhs, MyString&rhs) {
+MyString operator+(const MyString &lhs, const MyString&rhs) {
     cout << "addition overload lhs + lhs called\n";
     size_t len = strlen(rhs.getstr()) + strlen(lhs.getstr()) + 1; // since not a friend needs method to access
     char * buffer = new char[len];
@@ -109,6 +116,18 @@ MyString MyString::operator++(int) {
     delete []str;
     str = buff;
     return temp;
+}
+
+ostream &operator<<(ostream &os, const MyString &obj) {
+    os << obj.getstr();
+    return os;
+}
+istream &operator>>(istream &is, MyString &obj) {
+    char * buff = new char[10000];
+    is >> buff;
+    obj = MyString(buff);
+    delete []buff;
+    return is;
 }
 
 MyString::~MyString() {

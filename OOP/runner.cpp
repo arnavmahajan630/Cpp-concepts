@@ -22,7 +22,19 @@ void  operatorOverloading() {
     MyString s("hello");
     s++;
     cout << s.getstr() << endl;
-}
+
+    // printing to stream smoothly
+    cout << s << endl; //hellohello gets printed again. verified
+
+    // inputing to ostream
+    MyString j = "";
+    cin >> j;
+    cout << j + MyString("21"); // desipite being rval compiler binds
+    // the issue is that this MyString is a temp value and can bind only 
+    // to a const lvalue i had put non const rhl thus it could not bind 
+    
+    // c++ Compiler creator rocks
+}                                    
 
 void Inheritance() {
 
