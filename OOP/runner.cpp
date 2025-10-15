@@ -29,8 +29,8 @@ void Inheritance() {
 }
 
 int main() {
-    //operatorOverloading();
-    Inheritance();
+    operatorOverloading();
+    //Inheritance();
     
     return 0;
 }

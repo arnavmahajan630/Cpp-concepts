@@ -8,7 +8,7 @@ class MyString  {
     MyString(); // No args constructor
     MyString(const char * s); // overloaded constructor
     MyString(const MyString &source); // copy constructor
-    MyString(MyString &&source)noexcept;
+    MyString(MyString &&source)noexcept; // move constructor
     // Operator Overloadings
     MyString& operator=(const MyString & rhs); // assignment overload (Copy)
     MyString& operator=(MyString &&rhs)noexcept; // assignment overload (move)  
