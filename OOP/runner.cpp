@@ -16,12 +16,12 @@ void  operatorOverloading() {
     // Assignment Operator Overload Copy & Move
     MyString d = "World";
     a = a + c + d;
-    cout << a.get_str() << endl; // prints hellonewworld
+    cout << a.getstr() << endl; // prints hellonewworld
 
     // Post Increment
     MyString s("hello");
     s++;
-    cout << s.get_str() << endl;
+    cout << s.getstr() << endl;
 }
 
 void Inheritance() {

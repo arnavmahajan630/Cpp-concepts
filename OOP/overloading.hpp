@@ -1,95 +1,102 @@
 #include <cstring>
 #include <iostream>
-class MyString  {
-    private:
-    char * str;
-    public:
-    // Constructors
-    MyString(); // No args constructor
-    MyString(const char * s); // overloaded constructor
+using namespace std;
+class MyString
+{
+private:
+    char *str;
+public:
+    // Member Prototypes
+    MyString(); // No args default constructor
+    MyString(const char * s); // paratermarized overloaded constructor
     MyString(const MyString &source); // copy constructor
     MyString(MyString &&source)noexcept; // move constructor
-    // Operator Overloadings
-    MyString& operator=(const MyString & rhs); // assignment overload (Copy)
-    MyString& operator=(MyString &&rhs)noexcept; // assignment overload (move)  
-    //friend MyString operator+(const MyString& lhs, const MyString& rhs); // not a member overload +
-    //friend bool operator==(const MyString &lhs, const MyString &rhs);
-    MyString operator++(int);
-    ~MyString(); // destructor
-    
-    // Getters
-    const char * get_str() const {return str;} 
+    // Member Operator overloads
+    MyString&operator=(const MyString&rhs); // assignment copy overload
+    MyString &operator=(MyString &&rhs)noexcept;
+    MyString operator++(int); // int means post increment
+    ~MyString();// destructor
+
+    // Non member functions Since they don't modify object they dont belong in class
+    // operator + - * / == != stream insertions etc
+
+    // member methods
+    const char * getstr() const {
+        return str;
+    }
 };
+    //default
 MyString::MyString():str(nullptr) {
-    std::cout << "no args called\n";
+    cout << "default constructor called\n";
     str = new char[1];
     str[0] = '\0';
 }
 
+// param
 MyString::MyString(const char * s):str(nullptr) {
-    std::cout << "overloaded constructor called\n";
+    cout << "Overloaded constructor called\n";
     if(s == nullptr) {
         str = new char[1];
         str[0] = '\0';
     }
-    else {
+    else  {
         str = new char[strlen(s) + 1];
-        strcpy(str, s);
+        str = strcpy(str, s);
     }
 }
 
-MyString::MyString(const MyString &soruce):str(nullptr) {
-    std::cout << "copy constructor called\n";
-    if(soruce.str == nullptr) {
+// deep copy
+MyString::MyString(const MyString &source):str(nullptr) {
+    cout << "Copy Constructor called\n";
+    if(source.str == nullptr) {
         str = new char[1];
         str[0] = '\0';
     }
-    else {
-        str = new char [strlen(soruce.str) + 1];
-        strcpy(str, soruce.str);
+    else  {
+        str = new char[strlen(source.str) + 1];
+        str = strcpy(str, source.str);
     }
 }
 
-MyString::MyString(MyString &&soruce)noexcept:str(soruce.str) {
-    std::cout << "move constructor was called\n";
-    soruce.str = nullptr;
+// move
+MyString::MyString(MyString &&source)noexcept:str(source.str) {
+    source.str = nullptr;
 }
 
+// assginemnt copy =
 MyString &MyString::operator=(const MyString & rhs) {
-    std::cout << "copy overload was called\n";
-    if(this == &rhs)return * this;
-    else {
-        delete []str;
-        str = new char[strlen(rhs.str) + 1];
-        strcpy(str, rhs.str);
-    }
-    return *this;
-}
-MyString &MyString::operator=(MyString &&rhs)noexcept {
-    std::cout << "Move overload was called\n";
+    cout << "assignemnt copy overload called \n";
     if(this == &rhs)return *this;
-    else {
-        delete []str;
-        str = rhs.str;
-        rhs.str = nullptr;
-    }
+    delete []str;
+    str = new char[(2*(strlen(rhs.str))) + 1];
+    strcpy(str, rhs.str);
     return *this;
 }
 
-MyString operator+(const MyString &lhs, const MyString &rhs) {
-    std::cout << "adder overload was called\n";
-    size_t len = strlen(lhs.get_str()) + strlen(rhs.get_str()) + 1;
+// move copy overload
+MyString &MyString::operator=(MyString &&rhs)noexcept {
+    cout << "assignment move overload called\n";
+    if(this == &rhs)return *this;
+    delete []str;
+    str = rhs.str;
+    rhs.str = nullptr;
+    return *this;
+}
+
+MyString operator+(const MyString &lhs, MyString&rhs) {
+    cout << "addition overload lhs + lhs called\n";
+    size_t len = strlen(rhs.getstr()) + strlen(lhs.getstr()) + 1; // since not a friend needs method to access
     char * buffer = new char[len];
-    strcpy(buffer, lhs.get_str());
-    strcat(buffer, rhs.get_str());
+    strcpy(buffer, lhs.getstr());
+    strcat(buffer, rhs.getstr());
     return MyString(buffer);
 }
 
 bool operator==(const MyString &lhs, const MyString &rhs) {
-    return strcmp(lhs.get_str(), rhs.get_str()) == 0;
+    return strcmp(lhs.getstr(), rhs.getstr()) == 0;
 }
 bool operator!=(const MyString &lhs, const MyString &rhs) {
-    return strcmp(lhs.get_str(), rhs.get_str()) == 0;
+    return strcmp(lhs.getstr(), rhs.getstr()) == 0;
 }
 
 MyString MyString::operator++(int) {
@@ -104,7 +111,10 @@ MyString MyString::operator++(int) {
     return temp;
 }
 
-
 MyString::~MyString() {
     delete []str;
 }
+
+
+
+
