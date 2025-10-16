@@ -1,43 +1,5 @@
-#include <cstring>
-#include <iostream>
-using namespace std;
-class MyString
-{
-private:
-    char *str;
-public:
-    // Member Prototypes
-    MyString(); // No args default constructor
-    MyString(const char * s); // paratermarized overloaded constructor
-    MyString(const MyString &source); // copy constructor
-    MyString(MyString &&source)noexcept; // move constructor
-    // Member Operator overloads
-    MyString&operator=(const MyString&rhs); // assignment copy overload
-    MyString &operator=(MyString &&rhs)noexcept;
-    MyString operator++(int); // int means post increment
+#include "Mystring.hpp"
 
-    // copy assign overloads
-    MyString &operator+=(const MyString &rhs); // lval object
-    MyString &operator+=(MyString &&rhs)noexcept;// rval object
-    MyString &operator+=(const char * s); // free string
-    ~MyString();// destructor
-
-    // Non member functions Since they don't modify object they dont belong in class
-    // operator + - * / == != stream insertions etc
-
-    // Stream Overloading for cooler input and output
-    // ostream & istream
-
-    // member methods
-    const char * getstr() const {
-        return str;
-    }
-
-    // friends
-    friend MyString operator+(const MyString& lhs, const MyString& rhs);
-    friend std::ostream& operator<<(std::ostream& os, const MyString& obj);
-};
-    //default
 MyString::MyString():str(nullptr) {
     cout << "default constructor called\n";
     str = new char[1];
@@ -95,6 +57,7 @@ MyString &MyString::operator=(MyString &&rhs)noexcept {
     return *this;
 }
 
+// + on 2 lvalues (an rval bind to const lvals !!!!)
 MyString operator+(const MyString &lhs, const MyString&rhs) {
     cout << "addition overload lhs + lhs called\n";
     size_t len = strlen(rhs.getstr()) + strlen(lhs.getstr()) + 1; // since not a friend needs method to access
@@ -181,7 +144,3 @@ MyString & MyString::operator+=(const char * s) {
 MyString::~MyString() {
     delete []str;
 }
-
-
-
-

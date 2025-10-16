@@ -1,7 +1,10 @@
+#ifndef OPRUNNER_HPP
+#define OPRUNNER_HPP
+
 #include <iostream>
-#include "overloading.hpp"
+#include "Mystring.hpp"
 using namespace std;
-void  operatorOverloading() {
+inline void  operatorOverloading() {
     // Calls Copy Constructor (DEEP COPY) Copies a to b
     MyString a = "Hello";
     MyString b = a;
@@ -45,9 +48,5 @@ void  operatorOverloading() {
     k+= "doakes";
     cout << k << endl;
 }                                    
-int main() {
-    operatorOverloading();
-    //Inheritance();
-    
-    return 0;
-}
+
+#endif
