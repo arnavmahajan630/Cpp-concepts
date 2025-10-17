@@ -40,3 +40,23 @@ run_overloading: overloading
 # Clean
 clean:
 	rm -f *.o $(OP_TARGET)
+
+# Paths for Inheritance
+INH_CPP = OOP/Inheritance/account.cpp
+INH_HPP = OOP/Inheritance/account.hpp
+INH_RUNNER = OOP/Inheritance/inrunner.hpp
+INH_OBJ = account.o
+INH_TARGET = inheritance_test
+
+# Compile Account.cpp
+account.o: $(INH_CPP) $(INH_HPP)
+	$(CXX) $(CXXFLAGS) -c $(INH_CPP) -o $@
+
+# Build inheritance executable
+inheritance: $(MAIN_OBJ) $(INH_OBJ)
+	$(CXX) $(CXXFLAGS) $^ -o $(INH_TARGET)
+
+# Run command
+.PHONY: run_inheritance
+run_inheritance: inheritance
+	./$(INH_TARGET)
