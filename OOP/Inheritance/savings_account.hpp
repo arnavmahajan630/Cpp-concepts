@@ -4,6 +4,7 @@
 #include "account.hpp"
 
 class Savings_Account : public Account {
+    public:
     Savings_Account();
     ~Savings_Account();
     void deposit(double d);
