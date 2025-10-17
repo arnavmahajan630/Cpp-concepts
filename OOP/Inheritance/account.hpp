@@ -1,12 +1,11 @@
 #ifndef ACCOUNT_HPP
 #define ACCOUNT_HPP
 class Account {
-    private:
-    int bal;
+
     public:
     Account();
-    Account(int bal);
     ~Account();
-    int balance() {return bal;}
+    void deposit(double d);
+    void withdraw(double d);
 };
 #endif
