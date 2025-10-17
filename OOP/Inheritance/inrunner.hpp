@@ -8,6 +8,8 @@ using namespace std;
 inline void inhertitance() {
     Account a = Account();
     cout << a.name << " whyyy " << a.balance << endl;
-
+    Savings_Account b = Savings_Account();
+    cout << b.name << endl;
+    cout << b.int_rate << endl;
 }
 #endif
