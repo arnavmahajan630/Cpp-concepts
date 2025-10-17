@@ -5,6 +5,7 @@
 
 class Savings_Account : public Account {
     public:
+    int int_rate;
     Savings_Account();
     ~Savings_Account();
     void deposit(double d);

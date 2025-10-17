@@ -7,10 +7,7 @@
 using namespace std;
 inline void inhertitance() {
     Account a = Account();
-    a.deposit(100);
-    a.withdraw(20);
-    Savings_Account b = Savings_Account();
-    b.deposit(32);
-    b.withdraw(12);
+    cout << a.name << " whyyy " << a.balance << endl;
+
 }
 #endif

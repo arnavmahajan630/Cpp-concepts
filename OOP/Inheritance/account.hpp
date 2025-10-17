@@ -1,8 +1,11 @@
 #ifndef ACCOUNT_HPP
 #define ACCOUNT_HPP
-class Account {
 
+#include <string>
+class Account {
     public:
+    double balance;
+    std::string name;
     Account();
     ~Account();
     void deposit(double d);
