@@ -17,11 +17,14 @@ OPRUNNER_HPP = OOP/Operator_Overloading/Oprunner.hpp
 INH_CPP = OOP/Inheritance/account.cpp
 INH_HPP = OOP/Inheritance/account.hpp
 INH_RUNNER = OOP/Inheritance/inrunner.hpp
+INH_SAVINGS_CPP = OOP/Inheritance/savings_account.cpp
+INH_SAVINGS_HPP = OOP/Inheritance/savings_account.hpp
 
 # --- Object files ---
 MAIN_OBJ = $(OBJ_DIR)/main.o
 OVERLOAD_OBJ = $(OBJ_DIR)/mystring.o
 INH_OBJ = $(OBJ_DIR)/account.o
+SAV_OBJ = $(OBJ_DIR)/savingsaccount.o
 
 # --- Targets ---
 OP_TARGET = $(BIN_DIR)/overload_test
@@ -50,11 +53,15 @@ $(OVERLOAD_OBJ): $(OVERLOAD_CPP) $(OVERLOAD_HPP) | $(OBJ_DIR)
 $(INH_OBJ): $(INH_CPP) $(INH_HPP) | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $(INH_CPP) -o $@
 
+$(SAV_OBJ): $(INH_SAVINGS_CPP) $(INH_SAVINGS_HPP) | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(INH_SAVINGS_CPP) -o $@
+
+
 # --- Build executables ---
 overloading: $(MAIN_OBJ) $(OVERLOAD_OBJ) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) $^ -o $(OP_TARGET)
 
-inheritance: $(MAIN_OBJ) $(INH_OBJ) | $(BIN_DIR)
+inheritance: $(MAIN_OBJ) $(INH_OBJ) $(SAV_OBJ) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) $^ -o $(INH_TARGET)
 
 # --- Run commands ---
