@@ -1,57 +1,42 @@
-# Makefile for the project rooted at cpp-concepts/
-
-# --- Configuration Variables ---
+# Compiler
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
-TARGET = my_app
 
-# --- Directory and File Structure ---
-# Directories
-OOP_DIR = OOP
-OP_OVERLOAD_DIR = $(OOP_DIR)/Operator_Overloading
+# Paths for Operator Overloading
+MAIN_SRC = OOP/main.cpp
+OVERLOAD_CPP = OOP/Operator_Overloading/MyString.cpp
+OVERLOAD_HPP = OOP/Operator_Overloading/MyString.hpp
+OPRUNNER_HPP = OOP/Operator_Overloading/Oprunner.hpp
 
-# Source files (paths relative to the Makefile's location: cpp-concepts/)
-MAIN_SRC = $(OOP_DIR)/main.cpp
-MYSTRING_SRC = $(OP_OVERLOAD_DIR)/Mystring.cpp
-
-# Header dependencies (used for the compile rule)
-MYSTRING_HPP = $(OP_OVERLOAD_DIR)/Mystring.hpp
-OPRUNNER_HPP = $(OP_OVERLOAD_DIR)/Oprunner.hpp
-
-# Object files (intermediate .o files - created in the same directory as Makefile)
+# Object files
 MAIN_OBJ = main.o
-MYSTRING_OBJ = mystring.o
+OVERLOAD_OBJ = mystring.o
 
-# --- Build Targets ---
+# Target
+OP_TARGET = overload_test
 
-# Default target: builds the executable
-.PHONY: all
-all: $(TARGET)
+# --- Build Rules ---
+.PHONY: all overloading run_overloading clean
 
-# Link the executable
-$(TARGET): $(MAIN_OBJ) $(MYSTRING_OBJ)
-	$(CXX) $(CXXFLAGS) $^ -o $@
+# Default target
+all: overloading
 
-# Compile main.cpp -> main.o
-# Prerequisite: main.cpp needs Oprunner.hpp
-# NOTE: The command must use the source file variable $(MAIN_SRC)
-$(MAIN_OBJ): $(MAIN_SRC) $(OPRUNNER_HPP)
+# Compile and link Operator Overloading
+overloading: $(MAIN_OBJ) $(OVERLOAD_OBJ)
+	$(CXX) $(CXXFLAGS) $^ -o $(OP_TARGET)
+
+# Compile main.cpp
+main.o: $(MAIN_SRC) $(OPRUNNER_HPP)
 	$(CXX) $(CXXFLAGS) -c $(MAIN_SRC) -o $@
 
-# Compile Mystring.cpp -> mystring.o
-# Prerequisite: Mystring.cpp needs Mystring.hpp
-# NOTE: The command must use the source file variable $(MYSTRING_SRC)
-$(MYSTRING_OBJ): $(MYSTRING_SRC) $(MYSTRING_HPP)
-	$(CXX) $(CXXFLAGS) -c $(MYSTRING_SRC) -o $@
+# Compile MyString.cpp
+mystring.o: $(OVERLOAD_CPP) $(OVERLOAD_HPP)
+	$(CXX) $(CXXFLAGS) -c $(OVERLOAD_CPP) -o $@
 
-# --- Utility Targets ---
+# Run
+run_overloading: overloading
+	./$(OP_TARGET)
 
-# Run the program
-.PHONY: run
-run: $(TARGET)
-	./$(TARGET)
-
-# Clean up generated files
-.PHONY: clean
+# Clean
 clean:
-	rm -f $(TARGET) *.o
+	rm -f *.o $(OP_TARGET)
