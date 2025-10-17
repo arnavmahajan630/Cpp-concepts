@@ -2,61 +2,68 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
 
-# Paths for Operator Overloading
+# Build directories (created automatically)
+OBJ_DIR = build/obj
+BIN_DIR = build/bin
+
+# --- Source files ---
+# Operator Overloading
 MAIN_SRC = OOP/main.cpp
 OVERLOAD_CPP = OOP/Operator_Overloading/MyString.cpp
 OVERLOAD_HPP = OOP/Operator_Overloading/MyString.hpp
 OPRUNNER_HPP = OOP/Operator_Overloading/Oprunner.hpp
 
-# Object files
-MAIN_OBJ = main.o
-OVERLOAD_OBJ = mystring.o
-
-# Target
-OP_TARGET = overload_test
-
-# --- Build Rules ---
-.PHONY: all overloading run_overloading clean
-
-# Default target
-all: overloading
-
-# Compile and link Operator Overloading
-overloading: $(MAIN_OBJ) $(OVERLOAD_OBJ)
-	$(CXX) $(CXXFLAGS) $^ -o $(OP_TARGET)
-
-# Compile main.cpp
-main.o: $(MAIN_SRC) $(OPRUNNER_HPP)
-	$(CXX) $(CXXFLAGS) -c $(MAIN_SRC) -o $@
-
-# Compile MyString.cpp
-mystring.o: $(OVERLOAD_CPP) $(OVERLOAD_HPP)
-	$(CXX) $(CXXFLAGS) -c $(OVERLOAD_CPP) -o $@
-
-# Run
-run_overloading: overloading
-	./$(OP_TARGET)
-
-# Clean
-clean:
-	rm -f *.o $(OP_TARGET)
-
-# Paths for Inheritance
+# Inheritance
 INH_CPP = OOP/Inheritance/account.cpp
 INH_HPP = OOP/Inheritance/account.hpp
 INH_RUNNER = OOP/Inheritance/inrunner.hpp
-INH_OBJ = account.o
-INH_TARGET = inheritance_test
 
-# Compile Account.cpp
-account.o: $(INH_CPP) $(INH_HPP)
+# --- Object files ---
+MAIN_OBJ = $(OBJ_DIR)/main.o
+OVERLOAD_OBJ = $(OBJ_DIR)/mystring.o
+INH_OBJ = $(OBJ_DIR)/account.o
+
+# --- Targets ---
+OP_TARGET = $(BIN_DIR)/overload_test
+INH_TARGET = $(BIN_DIR)/inheritance_test
+
+# --- Ensure build directories exist ---
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
+# --- Phony targets ---
+.PHONY: all overloading inheritance run_overloading run_inheritance clean
+
+# --- Default target ---
+all: overloading inheritance
+
+# --- Compile object files ---
+$(MAIN_OBJ): $(MAIN_SRC) $(OPRUNNER_HPP) | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(MAIN_SRC) -o $@
+
+$(OVERLOAD_OBJ): $(OVERLOAD_CPP) $(OVERLOAD_HPP) | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(OVERLOAD_CPP) -o $@
+
+$(INH_OBJ): $(INH_CPP) $(INH_HPP) | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $(INH_CPP) -o $@
 
-# Build inheritance executable
-inheritance: $(MAIN_OBJ) $(INH_OBJ)
+# --- Build executables ---
+overloading: $(MAIN_OBJ) $(OVERLOAD_OBJ) | $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $^ -o $(OP_TARGET)
+
+inheritance: $(MAIN_OBJ) $(INH_OBJ) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) $^ -o $(INH_TARGET)
 
-# Run command
-.PHONY: run_inheritance
+# --- Run commands ---
+run_overloading: overloading
+	./$(OP_TARGET)
+
 run_inheritance: inheritance
 	./$(INH_TARGET)
+
+# --- Clean ---
+clean:
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
