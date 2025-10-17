@@ -1,3 +1,6 @@
+SHELL := cmd
+.SHELLFLAGS := /C
+
 # Compiler
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
@@ -32,10 +35,10 @@ INH_TARGET = $(BIN_DIR)/inheritance_test
 
 # --- Ensure build directories exist ---
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+	@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)"
 
 $(BIN_DIR):
-	mkdir -p $(BIN_DIR)
+	@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)"
 
 # --- Phony targets ---
 .PHONY: all overloading inheritance run_overloading run_inheritance clean
@@ -66,11 +69,16 @@ inheritance: $(MAIN_OBJ) $(INH_OBJ) $(SAV_OBJ) | $(BIN_DIR)
 
 # --- Run commands ---
 run_overloading: overloading
-	./$(OP_TARGET)
+	@"$(BIN_DIR)\overload_test.exe"
 
 run_inheritance: inheritance
-	./$(INH_TARGET)
+	@"$(BIN_DIR)\inheritance_test.exe"
+
 
 # --- Clean ---
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	@echo Cleaning project...
+	@if exist build\obj rmdir /s /q build\obj
+	@if exist build\bin rmdir /s /q build\bin
+
+
