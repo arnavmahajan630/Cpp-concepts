@@ -1,0 +1,21 @@
+Inheritance is quite complex since we have many types of inheritances
+*public
+*private
+*protected
+
+=> for now ill focus only on public later Ill come back with books and refferences
+for private and protected
+
+
+
+A Derived class does not inherit the following stuff from base class:
+Constructor
+Destructor
+overloaded assignment operator
+friend functions
+
+=> However the derived class equivalents can invoke base class versions
+
+# !!! if we initialize a class Dervied D with param then it's not like the Base param will be called
+while making of derived first the base no args is called then derived param is called
+we need to explicitly call for this Base constructor with param in derived if we want it to be called 
