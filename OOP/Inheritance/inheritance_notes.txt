@@ -19,3 +19,11 @@ friend functions
 # !!! if we initialize a class Dervied D with param then it's not like the Base param will be called
 while making of derived first the base no args is called then derived param is called
 we need to explicitly call for this Base constructor with param in derived if we want it to be called 
+
+
+# When we normally did Derived(int x) then Base () with no args get called auto this means 
+the vlaue of base variable inherited by derived class get's set according to default constructor 
+If we want our own custom value to be set in that case what we need to do is 
+   Derived(int x) : Base{x}, double_val(0){cout << "derived from base constructor called" << endl;}
+This explicitly says that construct whatever inherited from base with Base(x) and base x is defined in the base class
+

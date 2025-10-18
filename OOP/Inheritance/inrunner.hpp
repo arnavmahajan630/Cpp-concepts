@@ -12,19 +12,26 @@ inline void inhertitance() {
     // cout << b.name << endl;
     // cout << b.int_rate << endl;
 
-    Base base;
-    base.a = 100;
-    base.display();
-    Derived der;
-    der.modify();
-    der.display();
+    // Base base;
+    // base.a = 100;
+    // base.display();
+    // Derived der;
+    // der.modify();
+    // der.display();
    // base.b = 100; inaccecible since b is private
    // base.c = 100; protected not possible
+
 
    /*From the constructor logs we can understand that base object is created first
     Then we have the Derived object creation. similarly the Derived 
     object is destroyed before the main object*/
 
-    
+    Derived d = Derived(32);
+    Base b = Base(32);
+    b.display();
+    d.display();
+
+
+
 }
 #endif

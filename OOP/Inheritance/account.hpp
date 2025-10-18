@@ -15,14 +15,16 @@ class Account {
 };
 
 class Base {
+    int value;
     public:
-    Base(){cout << "Base constructor called" << endl;}
+    Base():value(){cout << "Base constructor called" << endl;}
+    Base(int x):value(x){cout << "Param constructor called" << endl;}
     ~Base() {cout << "Base destructor called" << endl;}
     int a {0};  
-    void display(){cout << "a: " << a << " b: " << b << " c: " << c <<endl;}
-    protected:
-    int b {0};
-    private:
-    int c {0};
+    void display(){cout << "val: " << value << endl;}
+    // protected:
+    // int b {0};
+    // private:
+    // int c {0};
 };
 #endif
