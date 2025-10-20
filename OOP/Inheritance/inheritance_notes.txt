@@ -27,3 +27,27 @@ If we want our own custom value to be set in that case what we need to do is
    Derived(int x) : Base{x}, double_val(0){cout << "derived from base constructor called" << endl;}
 This explicitly says that construct whatever inherited from base with Base(x) and base x is defined in the base class
 
+
+# Copy Move and overload for derived class
+=> Invoking copy/move and overload assignment of base from dervied 
+
+Synatax generic for copy constructor
+Derived::Derived(const Derived & other) : Base(other), {// derived initializer list} {
+   // code for derived
+}
+
+Derived::Derived &operator=(cont Derived &rhs) {
+   if(this != &rhs) {
+      // sliced base and assign it's part
+       // assign the derived part
+   }
+   return *this;
+}
+
+# Usually they are not needed compiler will call it by it'self
+
+
+# For overloading it's very simple 
+display() would overload the method for derived class
+Account::depoist() would call the parent deposit method
+

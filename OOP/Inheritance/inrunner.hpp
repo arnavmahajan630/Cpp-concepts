@@ -26,11 +26,16 @@ inline void inhertitance() {
     Then we have the Derived object creation. similarly the Derived 
     object is destroyed before the main object*/
 
-    Derived d = Derived(32);
-    Base b = Base(32);
-    b.display();
-    d.display();
+    // Derived d = Derived(32);
+    // Base b = Base(32);
+    // b.display();
+    // d.display();
 
+    // Method overloading
+
+    Account * a = new Savings_Account(); // polymorphism in action
+    a->deposit(100); // prints the deposit of sv acc since it's overriden
+    
 
 
 }

@@ -10,7 +10,7 @@ class Account {
     std::string name;
     Account();
     ~Account();
-    void deposit(double d);
+    virtual void deposit(double d);
     void withdraw(double d);
 };
 

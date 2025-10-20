@@ -8,7 +8,7 @@ class Savings_Account : public Account {
     int int_rate;
     Savings_Account();
     ~Savings_Account();
-    void deposit(double d);
+    void deposit(double d) override;
     void withdraw(double d);
 
 };
