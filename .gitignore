@@ -1,4 +1,16 @@
+# Build output
+/build/
+/bin/
+/out/
+
+# Common binaries
+a.out
+*.out
+*.bin
 *.exe
-.vscode
+
+# Debug artifacts
 *.o
-build/
+*.so
+*.a
+
