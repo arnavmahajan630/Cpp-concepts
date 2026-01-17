@@ -44,4 +44,6 @@ fork() returns the following things
 
 (If there was 0 printed first that would mean that child picked by CFS nothing wrong with it)
 
-
+* To prevent exponential forking of process if we are on child process i.e if p_id == 0 don't fork
+The first process is the Parent. then we launch a child. Now we have 2 running processes.
+whenever they run we check if ihe id != 0 i.e a child must not fork again only main can fork. this is donce once and another process is created. thus 3 processes in total

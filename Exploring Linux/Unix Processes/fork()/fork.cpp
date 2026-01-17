@@ -10,7 +10,16 @@ int main() {
     // printf("hello to fork()! from: %d\n", id);
 
 
-    fork();
-    fork(); // 2^n processes are created reasoning is understood.
-    printf("hello from fork()\n");
+    // fork();
+    // fork(); // 2^n processes are created reasoning is understood.
+    // printf("hello from fork()\n");
+    
+    
+    // int id = fork();
+    // if(id != 0) {
+    //     fork();
+    // }
+    // printf("hell world\n");
+    return 0;
+
 }
