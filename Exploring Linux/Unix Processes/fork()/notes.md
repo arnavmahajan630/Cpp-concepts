@@ -42,4 +42,6 @@ fork() returns the following things
     Thus i cannot assume lowe runtime is immediately scheduled. (on blocking / waiting) best is chosen from the Red/black tree.
 => A Timer Interrupt exists that checks curernt vrumtime with competitors in the tree. if "unfair" forcefully preeempt the process. unfair is decided based on scheudled latency.
 
+(If there was 0 printed first that would mean that child picked by CFS nothing wrong with it)
+
 
