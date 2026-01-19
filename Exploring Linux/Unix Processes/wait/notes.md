@@ -32,6 +32,7 @@ Flushing output ensures correctness of printed data, not scheduling order. Conte
 - The wait() system call is used by a parent process to synchronize with the lifecycle of its child processes. It does not create communication between processes; instead, it establishes a synchronization point where the parent acknowledges that a child has terminated.
 - When wait() is called, the kernel checks whether any child process has already exited. If so, wait() returns immediately. If no child has exited yet, the parent process is put to sleep and removed from the scheduler until a child terminates.
 - This means wait() does not “watch” the child continuously. It simply blocks or returns based on the child’s termination state at the moment it is called.
+- Wait returns the child's status and completely removes the process from the record of processes. This elimintes the zombie process. We must always call on this wait if we know we have no further use of the child process status and it's work is completed for sure.
 
 Its purpose is limited to:
 Process lifecycle synchronization
