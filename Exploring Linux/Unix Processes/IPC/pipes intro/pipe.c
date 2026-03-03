@@ -8,6 +8,7 @@ int main(int argc, char * argv[]) {
     }
 
     int id = fork();
+    if(id == -1){perror("Error occured while creating a new process"); return 2;}
     if(id == 0){
         close(fd[0]); // never even gonna read so don't care.
         // in the child process rn
@@ -22,8 +23,8 @@ int main(int argc, char * argv[]) {
     else {
         close(fd[1]); // never gonna write so don't care
         int y = 0;
-        if(read(fd[0], &y, sizeof(int)) == -1)perror("Error while reading from the piped file");
-        else printf("Read %d by parent from the dile successfully ! ", y);
+        if(read(fd[0], &y, sizeof(int)) == -1){perror("Error while reading from the piped file"); return 2;}
+        else printf("Read %d by parent from the dile successfully ! \n", y);
         close(fd[0]); // Completed reading
     }
 }

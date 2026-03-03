@@ -28,3 +28,9 @@
 * This means i can techincally write to the file as a parent. but this is not the intent tho ^_^
 
 * Here we don't need to wait for child process. this is because we are reading. and Read is a Blocking call.
+
+## A NOTE ON ERRORS
+* The printf() calls writes to a user buffer. this buffer operates in the user space mode and uses `\n` ans the signal to invoke the write call for writing it to the kernel.
+* This can be bad for errors since they need to be immediate and can get mixed up with other outputs. This can also happen often in concurrent output and similar stuff.
+* To avoid this we use fflush this f-force flushes the ouput to the kernel by invoking the write call
+* A better approach is to user the perror / stderr functions that take care of that for us in better ways
