@@ -15,8 +15,8 @@ int main(int argc, char * argv[]) {
     void * (*func_ptr)(void *) = routine;
     pthread_create(&t1, NULL, func_ptr, NULL);
     pthread_create(&t2, NULL, func_ptr, NULL);
-    pthread_join();
+    pthread_join(t1, NULL);
     pthread_join(t2, NULL);
 
     return 0;
-}t1, NULL
+}
