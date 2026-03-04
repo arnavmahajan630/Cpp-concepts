@@ -21,3 +21,26 @@
 * the pthread_create() takes 1)ID, 2)fine-tune/NULL  3) pointer to function 4) additional data
 * pthread_join is the wait syscall for threads
 
+### Differnce Between Process and Thread
+
+| Process | Thread |
+| :---            | :---            |
+| Comtains PID (same as first TID)      |  Has a unique TID for each      |
+| KILL PID kills all the threads of that process      | KILL Tid kills a specific thread of the process      |
+| Process is never scheduled. fork() schedules the main thread     | Actual entities that are scheduled      |
+
+### Clone SysCall
+
+* when pthread_create is called a flag called CLONE_VM is passed which is refferencing to the same virtual memory
+* in fork() this flag is absent so a new mm_struct is innitializsed with COW mechanism
+
+* At the schular level everything is a task_struct. at resource level Process and threads are different.
+
+## A thread calling a Fork() ?
+* only that specific thread is cloned. not the entirity of the process. similarly since at the schedular level everything is a task_struct so that specific ts is only copied no other threads are copied. ever.
+
+### Race Conditions
+* Deadlocks, Livelocks, Starvation. when two threads try to modify / access the same shared memory. Corrupted inconsistant and false results can be displayed. these are race conditions.
+
+
+
