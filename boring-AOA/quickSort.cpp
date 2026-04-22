@@ -40,5 +40,7 @@ int main() {
 
     for(auto & x : v)cin >> x;
     quickSort(v, 0, n-1);
+
+    for(auto x : v)cout << x<< " ";
     return 0;
 }
