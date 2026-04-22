@@ -49,8 +49,17 @@
 * For each job fit it from deatline -> 0 wherever it is possible and a slot is free
 * else discard that job
 
+### Floyd Warshal Algorthm
+* It is a shortest path algorithm for all pair. (Shortest path between given two pair)
+* Also called as All pair shortest path algorithm
+* Cap on a K i.e for each visit between a pair we are going through k vertex for  visiting
+*  k = 1 means pass through 1 similarly k = 2 means 1,2
+* on Kth level means we can go through 0->k nodes. k+1 means k through k + 1
+* If a shortest path is obtained by k then k + 1th passing should not change the path. only when it passes for a given i,j as j -> k + 1 and j -> k + 1 then and only then we can say k + 1 is valid
+* dp[i][j] = dp[i][k] + dp[k][j]
 
 
 ### Fractional Knapsack
+* 
 
 ### Longest  Common Subsequence: 
