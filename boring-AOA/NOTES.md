@@ -41,4 +41,16 @@
 * Then traverse all the children of that node and if `dist[parent] + wt_child < dist[child_node]` update the distance of the child node and insert the new distance[child], child for the further exploration
 * Always do this for unvisited arrays and each processing makes it visited
 
+
+### Job Scheduling with Deadlines
+* We are given N jobs with an ID, Profit and Deadline
+* key part is to arrance the jobs to maximize profit
+* Sort the Jobs in descending order (prefer maximum profit ones)
+* For each job fit it from deatline -> 0 wherever it is possible and a slot is free
+* else discard that job
+
+
+
+### Fractional Knapsack
+
 ### Longest  Common Subsequence: 
