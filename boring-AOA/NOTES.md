@@ -60,6 +60,9 @@
 
 
 ### Fractional Knapsack
-* 
+* sort descending based on val / w weight
+* Take whole weight if <=  knapsack capacity
+* else take W/Item.weight * item.value and break
 
-### Longest  Common Subsequence: 
+
+
